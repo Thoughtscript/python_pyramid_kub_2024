@@ -25,5 +25,6 @@ class MethodApi(object):
 # This is akin to:
 ## an Angular import/export
 ## Node module.exports
+## Rust mod
 def includeme(config):
     config.scan()
