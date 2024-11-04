@@ -11,17 +11,49 @@ Very simple exploration of Python + Pyramid.
 ## Setup and Use
 
 1. For **Docker Compose**: 
-   * Execute `docker-compose up` from within [./docker-compose](./docker-compose/)
-2. For Kubernetes `TODO`:
-   * With `minikube` (both installed and running **Docker**) execute:
+   * Execute `bash run-dc.sh`
+2. For Kubernetes:
+   * Execute `bash run-k.sh`
+   * Will generate and display a dynamic **IP Address**.
+     * You will need to update the **Postman Collection Variables** accordingly to test.
+     * This is apparently required for `minikube` [local testing](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/).
 
 Note that **Pyramid** API Requests may not appear in the browser as rendered text (w/out a satisfactory Renderer). 
     * Check the Developer Console for the correct Response.
     * Postman is supplied to simplify basic testing.
 
+## Helpful Commands
+
+
+`docker`:
+
+```bash
+# Display running Docker Containers
+docker stats ## verify that the Docker builds are contained within the Kubernetes environment
+```
+
+`kubectl`:
+
+```bash
+kubectl get services
+kubectl get pods
+kubectl describe services/python-pyramid-postgres
+```
+
+`minikube`:
+
+```bash
+minikube dashboard ## Display minikube pods and namespaces
+minikube delete ## delete minikube to startover
+```
+
+> Check out [run-k.sh](./run-k.sh) for other relevant Kubernetes commands!
+
 ## Views
 
 **Serving File Content Dynamically**
+
+> Using the resolve DNS hostname from `docker-compose`:
 
 1. Simple HTML View: http://localhost:8000/index.html
    * https://docs.pylonsproject.org/projects/pyramid_cookbook/en/latest/static_assets/serving-files.html

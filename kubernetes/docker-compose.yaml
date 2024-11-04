@@ -1,0 +1,8 @@
+services:
+  python:
+    image: python-pyramid:v0.1
+    build:
+      context: ../python
+      dockerfile: dockerfile
+    ports:
+      - '8000:8000'

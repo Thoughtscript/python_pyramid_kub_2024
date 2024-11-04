@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-pyramid-postgres
+  labels:
+    app: python-pyramid-postgres
+spec:
+  type: NodePort # kubectl expose ...
+  selector:
+    app: python-pyramid-postgres
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-pyramid-postgres
+  labels:
+    app: python-pyramid-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-pyramid-postgres
+  template:
+    metadata:
+      labels:
+        app: python-pyramid-postgres
+    spec:
+      containers:
+      - name: python-pyramid
+        image: python-pyramid:v0.1
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8000

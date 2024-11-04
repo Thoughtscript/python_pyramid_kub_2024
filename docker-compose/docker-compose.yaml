@@ -1,32 +1,34 @@
 services:
-#   postgres:
-#     build:
-#       context: ./postgres
-#       dockerfile: dockerfile
-#     ports:
-#       - 5432:5432
-#     environment:
-#       - POSTGRES_PASSWORD="${POSTGRES_PASSWORD}"
-#     networks:
-#       - testnet
-#     volumes:
-#       - db-data:/var/lib/postgresql/data:delegated
+  postgres:
+    image: postgres:v0.1
+    build:
+      context: ../postgres
+      dockerfile: dockerfile
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD="${POSTGRES_PASSWORD}"
+    networks:
+      - testnet
+    volumes:
+      - db-data:/var/lib/postgresql/data:delegated
 
   python:
+    image: python-pyramid:v0.1
     build:
       context: ../python
       dockerfile: dockerfile
     ports:
       - '8000:8000'
-    #depends_on:
-    #  - postgres
-    #networks:
-    #  - testnet
+    depends_on:
+      - postgres
+    networks:
+      - testnet
     restart: unless-stopped
 
-# volumes:
-#   db-data:
+volumes:
+  db-data:
 
-# networks:
-#   testnet:
-#     driver: bridge
+networks:
+  testnet:
+    driver: bridge

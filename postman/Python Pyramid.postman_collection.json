@@ -42,12 +42,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/example/all",
+					"raw": "http://{{hostname}}:{{port}}/api/example/all",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "8000",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"example",
@@ -137,12 +137,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/example/1",
+					"raw": "http://{{hostname}}:{{port}}/api/example/1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "8000",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"example",
@@ -232,12 +232,12 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/example/1",
+					"raw": "http://{{hostname}}:{{port}}/api/example/1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "8000",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"example",
@@ -327,12 +327,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/example/1",
+					"raw": "http://{{hostname}}:{{port}}/api/example/1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "8000",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"example",
@@ -422,12 +422,12 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/example/1",
+					"raw": "http://{{hostname}}:{{port}}/api/example/1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "8000",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"example",
@@ -511,12 +511,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/methods",
+					"raw": "http://{{hostname}}:{{port}}/api/methods",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "8000",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"methods"
@@ -598,12 +598,12 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/methods",
+					"raw": "http://{{hostname}}:{{port}}/api/methods",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "8000",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"methods"
@@ -685,12 +685,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/methods",
+					"raw": "http://{{hostname}}:{{port}}/api/methods",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
-					"port": "8000",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"methods"
@@ -741,6 +741,38 @@
 					"body": "DELETE"
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "hostname",
+			"value": "localhost"
+		},
+		{
+			"key": "port",
+			"value": "8000"
 		}
 	]
 }
