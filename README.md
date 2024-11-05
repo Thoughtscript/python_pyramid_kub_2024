@@ -8,6 +8,20 @@
 
 Very simple exploration of Python + Pyramid.
 
+## TODO Check List
+
+- [x] Basic Pyramid App
+- [x] Basic Pyramid APIs
+- [x] Pyramid + Postgres
+- [x] Docker-Compose and equivalents in Kubernetes
+- [x] Add Tests
+- [ ] Add Real Tests - partially
+- [x] Learn more about Kubernetes in 2024 (`deployments`, `services`, `config-maps`, `volumes`, `volume-claims`, etc.)
+- [ ] Learn how to initialize Postgres with a script correctly (presumably through `containerInit`)
+- [x] Learn about ways to generate fixed hostnames and/or URLs (for `minikube` since it has some issues with this)
+   - [x] `NodePorts`
+   - [x] Ingress](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/#Windows)
+
 ## Setup and Use
 
 1. For **Docker Compose**: 
@@ -15,7 +29,7 @@ Very simple exploration of Python + Pyramid.
 2. For Kubernetes:
    * Execute `bash run-k.sh`
    * Will generate and display a dynamic **IP Address**.
-     * You will need to update the **Postman Collection Variables** accordingly to test.
+     * You may need to update the **Postman Collection Variables** accordingly to test.
      * This is apparently required for `minikube` [local testing](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/).
 
 Note that **Pyramid** API Requests may not appear in the browser as rendered text (w/out a satisfactory Renderer). 

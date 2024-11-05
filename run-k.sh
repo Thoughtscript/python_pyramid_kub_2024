@@ -25,6 +25,7 @@ echo "Deploying Python into minikube ..."
 kubectl apply -f python-deployment.yaml,python-service.yaml
 
 #-------------------------------------------------#
-echo "Setting minikube ports ..."
+echo "Setting minikube host and ports ..."
 #-------------------------------------------------#
-kubectl apply -f minikube-ingress.yaml
+# kubectl apply -f minikube-ingress.yaml
+minikube service python-pyramid --url

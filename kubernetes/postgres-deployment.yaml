@@ -14,19 +14,19 @@ spec:
         app: python-pyramid-postgres
         service: postgres
     spec:
-      initContainers:
-        - name: init-postgres
-          image: postgres:16.2
-          command: ["psql", "-U", "postgres", "-d", "postgres", "-f", "/var/lib/postgresql/data/init_sql.sql"]
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: postgres-data-mount
-        - name: seed-postgres
-          image: postgres:16.2
-          command: ["psql", "-U", "postgres", "-d", "postgres", "-f", "/var/lib/postgresql/data/seed_data.sql"]
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: postgres-data-mount
+      # initContainers:
+      #   - name: init-postgres
+      #     image: postgres:16.2
+      #     command: ["psql", "-U", "postgres", "-d", "postgres", "-f", "/var/lib/postgresql/data/init_sql.sql"]
+      #     volumeMounts:
+      #       - mountPath: /var/lib/postgresql/data
+      #         name: postgres-data-mount
+      #   - name: seed-postgres
+      #     image: postgres:16.2
+      #     command: ["psql", "-U", "postgres", "-d", "postgres", "-f", "/var/lib/postgresql/data/seed_data.sql"]
+      #     volumeMounts:
+      #       - mountPath: /var/lib/postgresql/data
+      #         name: postgres-data-mount
       containers:
         - name: postgres
           image: postgres:16.2
