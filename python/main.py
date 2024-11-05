@@ -48,8 +48,11 @@ with Configurator() as config:
     config.add_view(example_create_one, route_name='example_one', request_method='POST')
 
     # Add routes before including
-    config.add_route('api/methods', '/api/methods')
-    config.include('server.methods-api')
+    config.add_route('api_methods', '/api/methods')
+    config.include('methods.api')
+
+    config.add_route('postgres_scan', '/api/postgres/all')
+    config.include('postgres.api')
 
     # Renderers and Static Assets
     # json_renderer = JSON()

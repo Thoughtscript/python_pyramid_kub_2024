@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: python-pyramid-postgres
+      service: postgres
+  template:
+    metadata:
+      labels:
+        app: python-pyramid-postgres
+        service: postgres
+    spec:
+      initContainers:
+        - name: init-postgres
+          image: postgres:16.2
+          command: ["psql", "-U", "postgres", "-d", "postgres", "-f", "/var/lib/postgresql/data/init_sql.sql"]
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data-mount
+        - name: seed-postgres
+          image: postgres:16.2
+          command: ["psql", "-U", "postgres", "-d", "postgres", "-f", "/var/lib/postgresql/data/seed_data.sql"]
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data-mount
+      containers:
+        - name: postgres
+          image: postgres:16.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: postgres-secret
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data-mount
+      volumes:
+        - name: postgres-data-mount
+          persistentVolumeClaim:
+            claimName: postgres-volume-claim

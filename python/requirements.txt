@@ -1,3 +1,6 @@
 pyramid
 asgiref
 uvicorn[standard]
+psycopg[binary] #psycopg3
+pytest
+requests

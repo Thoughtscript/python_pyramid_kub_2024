@@ -8,5 +8,6 @@ COPY . .
 RUN python3 -m pip install --upgrade pip
 RUN apt-get update
 RUN python3 -m pip install -r requirements.txt
+RUN cd tests && pytest unit_tests.py && pytest integration_tests.py
 
 CMD [ "uvicorn", "main:app", "--host", "0.0.0.0"]

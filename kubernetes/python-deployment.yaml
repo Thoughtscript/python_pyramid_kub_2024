@@ -1,18 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: python-pyramid-postgres
+  name: python-pyramid
   labels:
     app: python-pyramid-postgres
+    service: python-pyramid
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: python-pyramid-postgres
+      service: python-pyramid
   template:
     metadata:
       labels:
         app: python-pyramid-postgres
+        service: python-pyramid
     spec:
       containers:
       - name: python-pyramid

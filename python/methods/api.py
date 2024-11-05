@@ -5,7 +5,7 @@ from pyramid.response import Response
 # I don't the order of this textually matters.
 ## Seems to load at the same time regardless 
 ## of above or after includeme
-@view_defaults(route_name='api/methods')
+@view_defaults(route_name='api_methods')
 class MethodApi(object):
     def __init__(self, request):
         self.request = request

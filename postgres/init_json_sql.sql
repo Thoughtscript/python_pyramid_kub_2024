@@ -4,9 +4,9 @@ CREATE ROLE testuser LOGIN SUPERUSER PASSWORD 'testpassword';
 
 -- Create table after check.
 
-DROP TABLE IF EXISTS jsonexample;
+DROP TABLE IF EXISTS example;
 
-CREATE TABLE jsonexample (
+CREATE TABLE example (
   id INT,
   json_col JSON,
   json_array_col JSON,
@@ -16,7 +16,7 @@ CREATE TABLE jsonexample (
 
 -- Insert values into table.
 
-INSERT INTO jsonexample VALUES (1,
+INSERT INTO example VALUES (1,
   '[1,2,3]'::json,
   '[{"id": 0, "name": "a"},{"id": 1, "name": "a"},{"id": 2, "name": "c"}]'::json,
   '[1,2,3]'::jsonb,
@@ -25,20 +25,20 @@ INSERT INTO jsonexample VALUES (1,
 
 -- queries
 
-SELECT * FROM jsonexample;
+SELECT * FROM example;
 
 -- insert via json
 
-INSERT INTO jsonexample VALUES (2,
+INSERT INTO example VALUES (2,
   '[1,2,3]'::json,
   '[{"id": 0, "name": "a"},{"id": 1, "name": "a"},{"id": 2, "name": "c"}]'::json,
   '[1,2,3]'::jsonb,
   '[{"id": 0, "name": "a"},{"id": 1, "name": "a"},{"id": 2, "name": "c"}]'::jsonb
 );
 
-INSERT INTO jsonexample
+INSERT INTO example
 SELECT id, json_col, json_array_col, jsonb_col, jsonb_array_col
-FROM json_populate_record (NULL::jsonexample,
+FROM json_populate_record (NULL::example,
     '{
       "id": 3,
       "json_col": {"name": "bob", "age": 111},
@@ -51,28 +51,28 @@ FROM json_populate_record (NULL::jsonexample,
 -- query into json array
 
 SELECT arr -> 'id' AS json_id, arr -> 'name' AS json_name
-FROM jsonexample e, json_array_elements(e.json_array_col) arr
+FROM example e, json_array_elements(e.json_array_col) arr
 WHERE (arr ->> 'id')::int > -1;
 
 -- query json column
 
-SELECT json_col::json ->> 2 FROM jsonexample;
+SELECT json_col::json ->> 2 FROM example;
 
-SELECT json_col -> 'age' FROM jsonexample;
+SELECT json_col -> 'age' FROM example;
 
-SELECT json_col -> 'age' AS json_age FROM jsonexample WHERE (json_col ->> 'age')::int = 111;
+SELECT json_col -> 'age' AS json_age FROM example WHERE (json_col ->> 'age')::int = 111;
 
 -- query into jsonb array
 
 SELECT arr -> 'id' AS json_id, arr -> 'name' AS json_name
-FROM jsonexample e, jsonb_array_elements(e.jsonb_array_col) arr
+FROM example e, jsonb_array_elements(e.jsonb_array_col) arr
 WHERE (arr ->> 'id')::int > -1;
 
 -- query jsonb column
 
-SELECT jsonb_col::json ->> 2 FROM jsonexample;
+SELECT jsonb_col::json ->> 2 FROM example;
 
-SELECT jsonb_col -> 'age' FROM jsonexample;
+SELECT jsonb_col -> 'age' FROM example;
 
 SELECT jsonb_col -> 'name' AS jsonb_name, jsonb_col -> 'age' AS jsonb_age
-FROM jsonexample WHERE (jsonb_col ->> 'name') = 'sarah';
+FROM example WHERE (jsonb_col ->> 'name') = 'sarah';

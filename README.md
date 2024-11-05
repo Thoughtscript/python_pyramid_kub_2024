@@ -24,6 +24,13 @@ Note that **Pyramid** API Requests may not appear in the browser as rendered tex
 
 ## Helpful Commands
 
+`bash`:
+
+```bash
+# Remove every Docker image, dangling volume, minikube, etc. and startover
+## use only if you know what you're doing!
+bash restart.sh 
+```
 
 `docker`:
 
@@ -44,7 +51,6 @@ kubectl describe services/python-pyramid-postgres
 
 ```bash
 minikube dashboard ## Display minikube pods and namespaces
-minikube delete ## delete minikube to startover
 ```
 
 > Check out [run-k.sh](./run-k.sh) for other relevant Kubernetes commands!
@@ -67,3 +73,5 @@ minikube delete ## delete minikube to startover
 4. https://kubernetes.io/docs/tasks/configure-pod-container/translate-compose-kubernetes/
 5. https://github.com/Pylons/pyramid/blob/main/docs/quick_tutorial/static_assets/tutorial/home.pt
 6. https://docs.pylonsproject.org/projects/pyramid_cookbook/en/latest/static_assets/serving-files.html
+7. https://github.com/testdrivenio/flask-vue-kubernetes/tree/master
+8. https://www.digitalocean.com/community/tutorials/how-to-deploy-postgres-to-kubernetes-cluster
