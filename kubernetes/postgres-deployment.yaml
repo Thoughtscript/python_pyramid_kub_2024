@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: postgres
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: python-pyramid-postgres
@@ -18,7 +18,8 @@ spec:
         - name: postgres
           image: postgres:16.2
           imagePullPolicy: IfNotPresent
-          command: ["psql", "-U", "postgres", "-d", "postgres", "-f", "/var/lib/postgresql/data/init_json_sql.sql"]
+          # command: ["psql", "-U", "postgres", "-d", "postgres", "-f", "/docker-entrypoint-initdb.d/init_json_sql.sql"]
+          ## psql -U postgres -d postgres -f /docker-entrypoint-initdb.d/init_json_sql.sql
           ports:
             - containerPort: 5432
           envFrom:
@@ -27,7 +28,16 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgres-data-mount
+            - mountPath: /docker-entrypoint-initdb.d
+              name: sql-init-mount
+              # Dropping this in here automatically initialize the DB - it occurs after the DB is spun up apparently
       volumes:
         - name: postgres-data-mount
           persistentVolumeClaim:
             claimName: postgres-volume-claim
+        - name: sql-init-mount
+          configMap:
+            name: initsql
+            items:
+              - key: init_json_sql.sql
+                path: init_json_sql.sql

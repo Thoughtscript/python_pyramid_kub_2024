@@ -1,8 +1,8 @@
-# kubectl create configmap initsql.sql --from-file=init_json_sql.sql
+# kubectl create configmap initsql --from-file=init_json_sql.sql
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: initsql.sql
+  name: initsql
   namespace: default
   uid: 0c53793d-a10c-4e4f-b547-bee3f5e34ff5
   resourceVersion: '474'

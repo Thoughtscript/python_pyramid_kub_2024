@@ -16,8 +16,10 @@ Very simple exploration of Python + Pyramid.
 - [x] Docker-Compose and equivalents in Kubernetes
 - [x] Add Tests
 - [x] Add Better Integration Tests (that fully inject a view)
-- [x] Learn more about Kubernetes in 2024 (`deployments`, `services`, `config-maps`, `volumes`, `volume-claims`, etc.)
-- [ ] Learn how to initialize Postgres with a script correctly (presumably through `containerInit`)
+- [x] Learn more about Kubernetes in 2024 (`deployments`, `services`, `configMaps`, `volumes`, `volume-claims`, etc.)
+- [x] Learn how to initialize Postgres with a script correctly (presumably through `containerInit`)
+  - [x] I created a `configMap`, mounted, and executed a command in `deployment < containers`.
+  - [x] Tested dropping the SQL script into `docker-entrypoint-initdb.d`.
 - [x] Learn about ways to generate fixed hostnames and/or URLs (for `minikube` since it has some issues with this)
    - [x] `NodePorts`
    - [x] Ingress](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/#Windows)

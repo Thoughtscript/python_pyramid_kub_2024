@@ -27,4 +27,5 @@ kubectl apply -f python-deployment.yaml,python-service.yaml
 #-------------------------------------------------#
 echo "Setting minikube host and ports ..."
 #-------------------------------------------------#
-minikube service python-pyramid --url
+sleep 15 && minikube service python-pyramid --url
+## Wait a bit here and rerun if needed
