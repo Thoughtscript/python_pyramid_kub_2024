@@ -15,12 +15,15 @@ Very simple exploration of Python + Pyramid.
 - [x] Pyramid + Postgres
 - [x] Docker-Compose and equivalents in Kubernetes
 - [x] Add Tests
-- [ ] Add Real Tests - partially
+- [x] Add Better Integration Tests (that fully inject a view)
 - [x] Learn more about Kubernetes in 2024 (`deployments`, `services`, `config-maps`, `volumes`, `volume-claims`, etc.)
 - [ ] Learn how to initialize Postgres with a script correctly (presumably through `containerInit`)
 - [x] Learn about ways to generate fixed hostnames and/or URLs (for `minikube` since it has some issues with this)
    - [x] `NodePorts`
    - [x] Ingress](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/#Windows)
+- [x] Basic SSL
+  - [x] Looks like `uvicorn`, TLS/SSl, and `asgiref` are presently incompatible: https://github.com/encode/uvicorn/issues/1118
+  - [x] In Production, one would presumably deploy a Proxy w/ SSL out in front (still bad practice to not SSL encrypt everything - network sniffing)
 
 ## Setup and Use
 
@@ -44,6 +47,9 @@ Note that **Pyramid** API Requests may not appear in the browser as rendered tex
 # Remove every Docker image, dangling volume, minikube, etc. and startover
 ## use only if you know what you're doing!
 bash restart.sh 
+
+# Make SSl certs for local testing
+# cd python && bash ssl.sh
 ```
 
 `docker`:

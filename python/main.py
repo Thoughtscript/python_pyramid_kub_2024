@@ -3,40 +3,60 @@ from pyramid.view import view_config
 from asgiref.wsgi import WsgiToAsgi
 from pyramid.response import Response
 #from pyramid.renderers import JSON
-from domain import CustomResponse
+from domain import CustomResponse, Example
+
+cache = {}
 
 # Decorator approach
 @view_config(route_name='example_scan', request_method='GET') #, renderer='json')
 def example_scan(request):
-    # Do logic here...
-    print(request)
-    return Response(str(CustomResponse(200,  "GOT ALL"))) ## This must have a len
+    return Response(CustomResponse(200,  "SCANNED", cache.values()).stringify()) ## This must have a len
 
 def example_get_one(request):
-    # Do logic here...
-    print(request)
-    return Response(str(CustomResponse(200,  "GET GOT")))
+    # https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/urldispatch.html#matchdict
+    ## Unlike Node, params don't expose both path and query params
+    id = request.matchdict.get('id')
+    
+    response_obj = cache.get(id)
+    if response_obj is not None:
+        response_obj = response_obj.stringify()
+
+    return Response(CustomResponse(200,  "GOT",  response_obj).stringify())
 
 def example_delete_one(request):
-    # Do logic here...
-    print(request)
-    return Response(str(CustomResponse(200,  "DELETED")))
+    id = request.matchdict.get('id')
+    response_obj = cache.get(id)
+    
+    if response_obj is not None:
+        del cache[id]
+        response_obj = cache.get(id)
+
+    return Response(CustomResponse(200,  "DELETED",  response_obj).stringify())
 
 def example_update_one(request):
-    # Do logic here...
-    print(request)
-    return Response(str(CustomResponse(200,  "UPDATED")))
+    id = request.matchdict.get('id')
+    response_obj = cache.get(id)
+
+    if response_obj is not None:
+        name = request.params.get('name','default')
+        cache[id] = Example(id, name)
+        response_obj = cache.get(id).stringify()
+
+    return Response(CustomResponse(200,  "UPDATED",  response_obj).stringify())
 
 def example_create_one(request):
-    # Do logic here...
-    print(request)
-    return Response(str(CustomResponse(200,  "CREATED")))
+    id = request.matchdict.get('id')
+    name = request.params.get('name','default')
+    cache[id] = Example(id, name)
+
+    response_obj = cache.get(id).stringify()
+    return Response(CustomResponse(200,  "CREATED",  response_obj).stringify())
 
 with Configurator() as config:
     # Imperative approach (e.g. - without a view_config decorator)
     config.add_route('example_scan', '/api/example/all')
     ## Only have to define this once can be reused with all more specific view/view operations
-    config.add_route('example_one', '/api/example/{uuid}')
+    config.add_route('example_one', '/api/example/{id}')
 
     # Routes, above define access paths to application functionality
     ## Views, by contrast, handle the actual Request/Response lifecycle
@@ -53,6 +73,10 @@ with Configurator() as config:
 
     config.add_route('postgres_scan', '/api/postgres/all')
     config.include('postgres.api')
+
+    config.add_route('math_api_basic', '/api/math/basic')
+    config.add_route('math_api_encap', '/api/math/encap')
+    config.include('mymath.api')
 
     # Renderers and Static Assets
     # json_renderer = JSON()

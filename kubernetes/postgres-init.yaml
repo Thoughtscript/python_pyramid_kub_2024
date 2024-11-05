@@ -1,0 +1,21 @@
+# kubectl create configmap initsql.sql --from-file=init_json_sql.sql
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: initsql.sql
+  namespace: default
+  uid: 0c53793d-a10c-4e4f-b547-bee3f5e34ff5
+  resourceVersion: '474'
+  creationTimestamp: '2024-11-05T15:21:17Z'
+  managedFields:
+    - manager: kubectl-create
+      operation: Update
+      apiVersion: v1
+      time: '2024-11-05T15:21:17Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:data:
+          .: {}
+          f:init_json_sql.sql: {}
+data:
+  init_json_sql.sql: "-- Create super user.\r\n\r\nCREATE ROLE testuser LOGIN SUPERUSER PASSWORD 'testpassword';\r\n\r\n-- Create table after check.\r\n\r\nDROP TABLE IF EXISTS example;\r\n\r\nCREATE TABLE example (\r\n  id INT,\r\n  json_col JSON,\r\n  json_array_col JSON,\r\n  jsonb_col JSONB,\r\n  jsonb_array_col JSONB\r\n);\r\n\r\n-- Insert values into table.\r\n\r\nINSERT INTO example VALUES (1,\r\n  '[1,2,3]'::json,\r\n  '[{\"id\": 0, \"name\": \"a\"},{\"id\": 1, \"name\": \"a\"},{\"id\": 2, \"name\": \"c\"}]'::json,\r\n  '[1,2,3]'::jsonb,\r\n  '[{\"id\": 0, \"name\": \"a\"},{\"id\": 1, \"name\": \"a\"},{\"id\": 2, \"name\": \"c\"}]'::jsonb\r\n);\r\n\r\n-- queries\r\n\r\nSELECT * FROM example;\r\n\r\n-- insert via json\r\n\r\nINSERT INTO example VALUES (2,\r\n  '[1,2,3]'::json,\r\n  '[{\"id\": 0, \"name\": \"a\"},{\"id\": 1, \"name\": \"a\"},{\"id\": 2, \"name\": \"c\"}]'::json,\r\n  '[1,2,3]'::jsonb,\r\n  '[{\"id\": 0, \"name\": \"a\"},{\"id\": 1, \"name\": \"a\"},{\"id\": 2, \"name\": \"c\"}]'::jsonb\r\n);\r\n\r\nINSERT INTO example\r\nSELECT id, json_col, json_array_col, jsonb_col, jsonb_array_col\r\nFROM json_populate_record (NULL::example,\r\n    '{\r\n      \"id\": 3,\r\n      \"json_col\": {\"name\": \"bob\", \"age\": 111},\r\n      \"json_array_col\": [{\"id\": 0, \"name\": \"a\"},{\"id\": 1, \"name\": \"a\"},{\"id\": 2, \"name\": \"c\"}],\r\n      \"jsonb_col\": {\"name\": \"sarah\", \"age\": 2222},\r\n      \"jsonb_array_col\": [{\"id\": 0, \"name\": \"a\"},{\"id\": 1, \"name\": \"a\"},{\"id\": 2, \"name\": \"c\"}]\r\n    }'\r\n);\r\n\r\n-- query into json array\r\n\r\nSELECT arr -> 'id' AS json_id, arr -> 'name' AS json_name\r\nFROM example e, json_array_elements(e.json_array_col) arr\r\nWHERE (arr ->> 'id')::int > -1;\r\n\r\n-- query json column\r\n\r\nSELECT json_col::json ->> 2 FROM example;\r\n\r\nSELECT json_col -> 'age' FROM example;\r\n\r\nSELECT json_col -> 'age' AS json_age FROM example WHERE (json_col ->> 'age')::int = 111;\r\n\r\n-- query into jsonb array\r\n\r\nSELECT arr -> 'id' AS json_id, arr -> 'name' AS json_name\r\nFROM example e, jsonb_array_elements(e.jsonb_array_col) arr\r\nWHERE (arr ->> 'id')::int > -1;\r\n\r\n-- query jsonb column\r\n\r\nSELECT jsonb_col::json ->> 2 FROM example;\r\n\r\nSELECT jsonb_col -> 'age' FROM example;\r\n\r\nSELECT jsonb_col -> 'name' AS jsonb_name, jsonb_col -> 'age' AS jsonb_age\r\nFROM example WHERE (jsonb_col ->> 'name') = 'sarah';"

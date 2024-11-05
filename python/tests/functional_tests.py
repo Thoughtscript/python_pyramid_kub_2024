@@ -1,9 +1,24 @@
 import unittest
 import requests
 
+EXAMPLE_TEST_URL = 'https://localhost:8000/api/example/all'
+
+METHOD_TEST_URL = 'https://localhost:8000/api/methods'
+
+class FunctionalExampleScanTest(unittest.TestCase):
+    def setUp(self):
+        self.response = requests.get(EXAMPLE_TEST_URL)
+
+    def tearDown(self):
+        self.response.close()
+
+    def test_response(self):
+        self.assertIn('[ status: 200 message: SCANNED content: dict_values([]) ]', self.response.text)
+        self.assertIs(200, self.response.status_code)
+
 class FunctionalMethodGetTest(unittest.TestCase):
     def setUp(self):
-        self.response = requests.get('http://localhost:8000/api/methods')
+        self.response = requests.get(METHOD_TEST_URL)
 
     def tearDown(self):
         self.response.close()
@@ -14,7 +29,7 @@ class FunctionalMethodGetTest(unittest.TestCase):
 
 class FunctionalMethodDeleteTest(unittest.TestCase):
     def setUp(self):
-        self.response = requests.delete('http://localhost:8000/api/methods')
+        self.response = requests.delete(METHOD_TEST_URL)
 
     def tearDown(self):
         self.response.close()
@@ -25,7 +40,7 @@ class FunctionalMethodDeleteTest(unittest.TestCase):
 
 class FunctionalMethodPostTest(unittest.TestCase):
     def setUp(self):
-        self.response = requests.post('http://localhost:8000/api/methods')
+        self.response = requests.post(METHOD_TEST_URL)
 
     def tearDown(self):
         self.response.close()
@@ -33,7 +48,6 @@ class FunctionalMethodPostTest(unittest.TestCase):
     def test_response(self):
         self.assertIn('POST', self.response.text)
         self.assertIs(200, self.response.status_code)
-
 
 if __name__ == '__main__':
     unittest.main()
