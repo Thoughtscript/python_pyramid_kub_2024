@@ -1,7 +1,5 @@
 import unittest
-
-def basic_addition(x, y):
-    return x + y
+from helpers import basic_addition
 
 class TestAddFunction(unittest.TestCase):
     def test_basic_addition(self):

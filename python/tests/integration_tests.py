@@ -1,10 +1,6 @@
 from pyramid import testing
 import unittest
-
-def test_view(request):
-    x = int(request.params.get('x', 0))
-    y = int(request.params.get('y', 0))
-    return {'result': x + y}
+from helpers import add_and_encapsulate_vals
 
 class IntegrationTest(unittest.TestCase):
     def setUp(self):
@@ -13,9 +9,11 @@ class IntegrationTest(unittest.TestCase):
     def tearDown(self):
         testing.tearDown()
 
-    def test_test_view(self):
+    def test_addition_view(self):
         request = testing.DummyRequest(params={'x': '2', 'y': '3'})
-        response = test_view(request)
+        x = int(request.params.get('x', 0))
+        y = int(request.params.get('y', 0))
+        response = add_and_encapsulate_vals(x, y)
         self.assertEqual(response['result'], 5)
 
 if __name__ == '__main__':

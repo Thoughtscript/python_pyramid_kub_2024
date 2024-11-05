@@ -55,6 +55,15 @@ minikube dashboard ## Display minikube pods and namespaces
 
 > Check out [run-k.sh](./run-k.sh) for other relevant Kubernetes commands!
 
+`pytest`
+
+```bash
+# Within the Python container
+cd tests && pytest functional_tests.py
+cd tests && pytest *.py 
+## Note that "Deprecated call to `pkg_resources.declare_namespace('zope')" is a known Python-wide issue
+```
+
 ## Views
 
 **Serving File Content Dynamically**

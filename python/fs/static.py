@@ -1,5 +1,4 @@
 from pyramid.view import view_config
-from pyramid.renderers import render_to_response
 from pyramid.response import FileResponse
 
 # Example expressly defining the File Path
