@@ -741,6 +741,94 @@
 					"body": "DELETE"
 				}
 			]
+		},
+		{
+			"name": "Postgres - Scan",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body\", function () {\r",
+							"    pm.expect(pm.response.text()).to.equal(`(1, [1, 2, 3], [{'id': 0, 'name': 'a'}, {'id': 1, 'name': 'a'}, {'id': 2, 'name': 'c'}], [1, 2, 3], [{'id': 0, 'name': 'a'}, {'id': 1, 'name': 'a'}, {'id': 2, 'name': 'c'}])`);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{hostname}}:{{port}}/api/postgres/all",
+					"protocol": "http",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"postgres",
+						"all"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Postgres - Scan",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{hostname}}:{{port}}/api/postgres/all",
+							"protocol": "http",
+							"host": [
+								"{{hostname}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"postgres",
+								"all"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "date",
+							"value": "Mon, 04 Nov 2024 22:24:54 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-type",
+							"value": "text/html; charset=UTF-8"
+						},
+						{
+							"key": "content-length",
+							"value": "173"
+						}
+					],
+					"cookie": [],
+					"body": "(1, [1, 2, 3], [{'id': 0, 'name': 'a'}, {'id': 1, 'name': 'a'}, {'id': 2, 'name': 'c'}], [1, 2, 3], [{'id': 0, 'name': 'a'}, {'id': 1, 'name': 'a'}, {'id': 2, 'name': 'c'}])"
+				}
+			]
 		}
 	],
 	"event": [
