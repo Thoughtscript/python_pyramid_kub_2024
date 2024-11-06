@@ -22,10 +22,11 @@ Very simple exploration of Python + Pyramid.
   - [x] Tested dropping the SQL script into `docker-entrypoint-initdb.d`.
 - [x] Learn about ways to generate fixed hostnames and/or URLs (for `minikube` since it has some issues with this)
    - [x] `NodePorts`
-   - [x] Ingress](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/#Windows)
+   - [x] [Ingress](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/#Windows)
 - [x] Basic SSL
   - [x] Looks like `uvicorn`, TLS/SSl, and `asgiref` are presently incompatible: https://github.com/encode/uvicorn/issues/1118
-  - [x] In Production, one would presumably deploy a Proxy w/ SSL out in front (still bad practice to not SSL encrypt everything - network sniffing)
+  - [x] In Production, one would presumably deploy a Proxy w/ SSL out in front (still bad practice to not SSL encrypt everything - internal network sniffing)
+  - [x] So is Waitress: https://github.com/Pylons/waitress/issues/287
 
 ## Setup and Use
 
@@ -38,8 +39,8 @@ Very simple exploration of Python + Pyramid.
      * This is apparently required for `minikube` [local testing](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/).
 
 Note that **Pyramid** API Requests may not appear in the browser as rendered text (w/out a satisfactory Renderer). 
-    * Check the Developer Console for the correct Response.
-    * Postman is supplied to simplify basic testing.
+   * Check the Developer Console for the correct Response.
+   * Postman is supplied to simplify basic testing.
 
 ## Helpful Commands
 
