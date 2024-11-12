@@ -75,7 +75,8 @@ kubectl describe services/python-pyramid-postgres
 `minikube`:
 
 ```bash
-minikube dashboard ## Display minikube pods and namespaces
+minikube dashboard # Display minikube pods and namespaces
+## can find the Pod and Exec into the Container easily throug the supplied interface
 ```
 
 > Check out [run-k.sh](./run-k.sh) for other relevant Kubernetes commands!
