@@ -15,9 +15,9 @@ Very simple exploration of Python + Pyramid.
 - [x] Pyramid + Postgres
 - [x] Docker-Compose and equivalents in Kubernetes
   - [X] Kubernetes build pipeline suitable for local builds and `minikube`
-  - [X] Address this ancient question: https://stackoverflow.com/questions/74598540/how-to-mount-a-sql-file-in-a-init-container-in-order-to-bootstrap-postgres-datab
+  - [X] Address this [ancient question](https://stackoverflow.com/questions/74598540/how-to-mount-a-sql-file-in-a-init-container-in-order-to-bootstrap-postgres-datab)
 - [x] Add Tests
-- [x] Add Better Integration Tests (that fully inject a view)
+  - [x] Add Better Integration Tests (that fully inject a view)
 - [x] Learn more about Kubernetes in 2024 (`deployments`, `services`, `configMaps`, `volumes`, `volume-claims`, etc.)
 - [x] Learn how to initialize Postgres with a script correctly (presumably through `containerInit`)
   - [x] I created a `configMap`, mounted, and executed a command in `deployment < containers`.
@@ -39,6 +39,9 @@ Very simple exploration of Python + Pyramid.
    * Will generate and display a dynamic **IP Address**.
      * You may need to update the **Postman Collection Variables** accordingly to test.
      * This is apparently required for `minikube` [local testing](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/).
+     * Seems to be the case that either the local **IP Address** or **Port Numbers** must be [manually generated or looked up](https://minikube.sigs.k8s.io/docs/handbook/accessing/) (in `minikube` [alone](https://medium.com/globant/load-balance-microservices-using-kubernetes-minikube-88b78dae4796) at some step regardless of whether one uses `nodePort`, a `minikube` **Load Balancer**, or `minikube service python-pyramid --url`).
+       * `nodePort` requires mapping from `8000` to `30000`-`32767`.
+       * Even with `nodePort` set in the [config](./kubernetes/python-deployment.yaml) the **IP Address** (**Host**) will be randomly generated and must still be manually exposed.
 
 Note that **Pyramid** API Requests may not appear in the browser as rendered text (w/out a satisfactory Renderer). 
    * Check the Developer Console for the correct Response.
