@@ -14,6 +14,7 @@ Very simple exploration of Python + Pyramid.
 - [x] Basic Pyramid APIs
 - [x] Pyramid + Postgres
 - [x] Docker-Compose and equivalents in Kubernetes
+  - [X] Kubernetes build pipeline suitable for local builds and `minikube`
 - [x] Add Tests
 - [x] Add Better Integration Tests (that fully inject a view)
 - [x] Learn more about Kubernetes in 2024 (`deployments`, `services`, `configMaps`, `volumes`, `volume-claims`, etc.)

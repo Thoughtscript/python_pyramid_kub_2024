@@ -1,9 +1,9 @@
 import unittest
 import requests
 
-EXAMPLE_TEST_URL = 'https://localhost:8000/api/example/all'
+EXAMPLE_TEST_URL = 'http://localhost:8000/api/example/all'
 
-METHOD_TEST_URL = 'https://localhost:8000/api/methods'
+METHOD_TEST_URL = 'http://localhost:8000/api/methods'
 
 class FunctionalExampleScanTest(unittest.TestCase):
     def setUp(self):
