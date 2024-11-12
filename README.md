@@ -15,6 +15,7 @@ Very simple exploration of Python + Pyramid.
 - [x] Pyramid + Postgres
 - [x] Docker-Compose and equivalents in Kubernetes
   - [X] Kubernetes build pipeline suitable for local builds and `minikube`
+  - [X] Address this ancient question: https://stackoverflow.com/questions/74598540/how-to-mount-a-sql-file-in-a-init-container-in-order-to-bootstrap-postgres-datab
 - [x] Add Tests
 - [x] Add Better Integration Tests (that fully inject a view)
 - [x] Learn more about Kubernetes in 2024 (`deployments`, `services`, `configMaps`, `volumes`, `volume-claims`, etc.)
